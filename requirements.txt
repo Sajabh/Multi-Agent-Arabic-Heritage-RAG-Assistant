@@ -1,0 +1,6 @@
+crewai
+crewai-tools
+sentence-transformers
+numpy
+streamlit
+pydantic
