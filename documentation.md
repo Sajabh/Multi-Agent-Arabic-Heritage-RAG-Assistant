@@ -5,19 +5,37 @@
 **Project Name:** Multi-Agent Arabic Heritage RAG Assistant
 
 **Description:**
-A multi-agent Retrieval-Augmented Generation (RAG) system that answers questions about Arabic heritage and culture. It uses CrewAI and a local LLM (Ollama) to provide accurate, culturally relevant information in both Arabic and English. The system automatically detects the user's language and draws from a large knowledge base on Arab heritage.
+A sophisticated multi-agent Retrieval-Augmented Generation (RAG) system that answers questions about Arabic heritage and culture using a hierarchical agent architecture. Built with CrewAI and powered by a local LLM (Ollama aya-expanse:8b), the system employs 5 specialized agents coordinated by a manager agent to provide accurate, culturally relevant information in both Arabic and English. The hierarchical process enables intelligent task delegation, parallel processing, and comprehensive responses that combine heritage information, weather data, and language-appropriate formatting.
 
 ---
 
 ## 2. End User Benefits
 
-End users benefit from instant, multilingual (Arabic/English) access to a rich database of Arabic heritage. The user-friendly interface makes learning about cultural sites and traditions easy and engaging. Because it runs locally, the tool ensures user privacy and can work offline. It also helps with travel planning by providing information on heritage sites and weather. For students and researchers, it's a quick and reliable educational resource.
+End users benefit from instant, multilingual (Arabic/English) access to a rich database of Arabic heritage through an intelligent multi-agent system. The hierarchical architecture ensures:
+
+- **Intelligent Query Processing**: Manager agent analyzes questions and routes them to appropriate specialists
+- **Comprehensive Answers**: Combines cultural heritage information with practical data like weather forecasts
+- **Natural Language Interaction**: Automatic language detection and response in user's preferred language
+- **High-Quality Results**: Specialized agents focused on specific tasks deliver expert-level information
+- **Privacy and Speed**: Local LLM ensures data privacy while providing fast responses
+- **User-Friendly Interface**: Clean Streamlit interface makes interaction intuitive and engaging
+
+For students and researchers, it's a reliable educational resource. For travelers, it combines cultural information with practical weather data. For cultural enthusiasts, it provides deep insights into Arabic heritage sites and traditions.
 
 ---
 
 ## 3. Business Benefits
 
-Businesses can use this application to improve customer service in the tourism sector, provide an interactive learning tool for educational institutions, and serve as a virtual guide for museums. It helps reduce operational costs by automating responses to inquiries, enhances user engagement, and can be scaled to a global audience. The system also supports cultural preservation efforts and can be white-labeled by tech companies as a specialized AI solution.
+Businesses can leverage this multi-agent architecture to:
+
+- **Tourism Sector**: Provide comprehensive travel planning combining heritage information and weather forecasts
+- **Educational Institutions**: Deploy as an interactive learning platform for cultural studies
+- **Museums & Cultural Centers**: Serve as an intelligent virtual guide
+- **Scalable Architecture**: Hierarchical agent system allows easy addition of new specialist agents
+- **Cost-Effective**: Local LLM eliminates API costs while maintaining high performance
+- **Cultural Preservation**: Support documentation and dissemination of cultural knowledge
+- **Operational Efficiency**: Automated multi-agent coordination reduces manual processing
+- **Enhanced User Engagement**: Intelligent responses improve customer satisfaction and retention
 
 ---
 
@@ -33,44 +51,45 @@ Businesses can use this application to improve customer service in the tourism s
 │  │                    Streamlit Web Interface                        │  │
 │  │                          (app.py)                                 │  │
 │  │  - User query input                                               │  │
-│  │  - Display results                                                │  │
-│  │                                                                │  │
+│  │  - Display multi-agent results                                    │  │
+│  │  - Real-time processing status                                    │  │
 │  └─────────────────────────────┬─────────────────────────────────────┘  │
 └─────────────────────────────────┼──────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                      ORCHESTRATION LAYER                                │
+│                         (CrewAI Framework)                               │
 │                                                                          │
 │  ┌───────────────────────────────────────────────────────────────────┐  │
-│  │                    CrewAI Framework                               │  │
-│  │                  (src/rag_crewai/crew.py)                         │  │
+│  │                    HIERARCHICAL PROCESS                           │  │
+│  │                  (Process.hierarchical)                           │  │
 │  │                                                                   │  │
 │  │  ┌────────────────────────────────────────────────────────────┐  │  │
-│  │  │           Heritage Guide & Travel Assistant Agent          │  │  │
+│  │  │              ⭐ MANAGER AGENT                               │  │  │
+│  │  │            (Project Manager)                               │  │  │
 │  │  │                                                            │  │  │
-│  │  │  Role: Heritage Guide & Travel Assistant                  │  │  │
-│  │  │  Process: Sequential Task Execution                       │  │  │
-│  │  │  LLM: Ollama (qwen2.5:0.5b)                              │  │  │
+│  │  │  • Analyzes user questions                                │  │  │
+│  │  │  • Delegates to specialist agents                         │  │  │
+│  │  │  • Coordinates workflow                                   │  │  │
+│  │  │  • Ensures task completion                                │  │  │
+│  │  │  • LLM: Ollama (aya-expanse:8b)                          │  │  │
+│  │  │  • Delegation: Enabled                                    │  │  │
 │  │  └─────────────────────┬──────────────────────────────────────┘  │  │
-│  └────────────────────────┼───────────────────────────────────────────┘  │
-└─────────────────────────────┼──────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          TASK EXECUTION LAYER                            │
-│                                                                          │
-│  ┌───────────────────────────────────────────────────────────────────┐  │
-│  │                    Task Workflow                                  │  │
-│  │              (config/tasks.yaml)                                  │  │
-│  │                                                                   │  │
-│  │  STEP 1: Language Detection                                      │  │
-│  │         ↓                                                         │  │
-│  │  STEP 2: Tool Selection & Execution                              │  │
-│  │         ↓                                                         │  │
-│  │  STEP 3: Response Generation                                     │  │
-│  └─────────────────────────┬─────────────────────────────────────────┘  │
-└─────────────────────────────┼──────────────────────────────────────────┘
+│  │                        │                                          │  │
+│  │          ┌─────────────┼─────────────┬──────────────┐            │  │
+│  │          │             │             │              │            │  │
+│  │          ▼             ▼             ▼              ▼            │  │
+│  │  ┌──────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │  │
+│  │  │   Language   │ │ Heritage │ │ Weather  │ │   Reporter   │  │  │
+│  │  │   Detector   │ │  Expert  │ │Specialist│ │    Agent     │  │  │
+│  │  │              │ │          │ │          │ │              │  │  │
+│  │  │  Language    │ │ Heritage │ │ Weather  │ │   Report     │  │  │
+│  │  │  Detection   │ │ Research │ │ Research │ │  Formatting  │  │  │
+│  │  │  Specialist  │ │   Task   │ │   Task   │ │     Task     │  │  │
+│  │  └──────────────┘ └──────────┘ └──────────┘ └──────────────┘  │  │
+│  └───────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────┘
                               │
             ┌─────────────────┼─────────────────┐
             │                 │                 │
@@ -84,8 +103,9 @@ Businesses can use this application to improve customer service in the tourism s
 │  │                  │  │                  │  │                      │  │
 │  │  - XLM-RoBERTa   │  │  - Semantic      │  │  - Weather API       │  │
 │  │  - Multilingual  │  │    Search        │  │  - Location-based    │  │
-│  │  - Returns       │  │  - Top-3         │  │  - Forecast data     │  │
-│  │    'ar' or 'en'  │  │    Retrieval     │  │                      │  │
+│  │  - Returns       │  │  - RAG Pipeline  │  │  - Forecast data     │  │
+│  │    'ar' or 'en'  │  │  - Top-3         │  │  - Real-time         │  │
+│  │                  │  │    Retrieval     │  │    information       │  │
 │  └──────────────────┘  └────────┬─────────┘  └──────────────────────┘  │
 └─────────────────────────────────┼──────────────────────────────────────┘
                                   │
@@ -97,10 +117,11 @@ Businesses can use this application to improve customer service in the tourism s
 │  │  Knowledge Base  │  │  Embedding Model │  │  Language Models     │  │
 │  │                  │  │                  │  │                      │  │
 │  │  - 39,000+ lines │  │  - SentenceXfer  │  │  - Ollama (Local)    │  │
-│  │  - Arab heritage │  │  - MiniLM-L6-v2  │  │  - qwen2.5:0.5b     │  │
+│  │  - Arab heritage │  │  - MiniLM-L6-v2  │  │  - aya-expanse:8b    │  │
 │  │  - Text chunks   │  │  - Cosine        │  │  - Arabic/English    │  │
 │  │  - 400 words/    │  │    similarity    │  │    support           │  │
-│  │    chunk         │  │  - Normalized    │  │                      │  │
+│  │    chunk         │  │  - Normalized    │  │  - Used by all 5     │  │
+│  │                  │  │    vectors       │  │    agents            │  │
 │  └──────────────────┘  └──────────────────┘  └──────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -109,52 +130,259 @@ Businesses can use this application to improve customer service in the tourism s
 
 The system is composed of five main layers:
 
-1.  **User Interface (Streamlit):** A simple web interface for users to ask questions.
-2.  **Orchestration (CrewAI):** Manages the agents and tasks, ensuring a smooth workflow from question to answer.
-3.  **Task Execution:** A workflow that first detects the language, then selects the right tools to answer the question.
-4.  **Tools:**
-    - **Heritage Search Tool:** Searches the knowledge base for relevant information using semantic search.
-    - **Language Detection Tool:** Identifies if the question is in Arabic or English.
-    - **Weather Forecast Tool:** Provides weather information for heritage sites.
+1.  **User Interface (Streamlit):** A simple web interface where users ask questions and receive comprehensive answers.
+
+2.  **Orchestration (CrewAI with Hierarchical Process):**
+
+    - **Manager Agent**: Central coordinator that analyzes queries and delegates to specialists
+    - **4 Specialist Agents**: Language Detector, Heritage Expert, Weather Specialist, Reporter
+    - **Hierarchical Process**: Enables intelligent delegation and parallel task execution
+
+3.  **Task Execution (4 Sequential Tasks):**
+
+    - **Task 1**: Language Detection - Identifies query language
+    - **Task 2**: Heritage Research - Retrieves cultural information
+    - **Task 3**: Weather Research - Fetches weather data if applicable
+    - **Task 4**: Report Formatting - Synthesizes information in detected language
+
+4.  **Tools (3 Specialized Tools):**
+
+    - **Heritage Search Tool**: RAG-based semantic search over knowledge base
+    - **Language Detection Tool**: XLM-RoBERTa powered language identification
+    - **Weather Forecast Tool**: Location-based weather information
+
 5.  **Data & Models:**
-    - **Knowledge Base:** A text file with over 39,000 lines of information on Arab heritage.
-    - **Embedding Model:** Converts text into numerical representations for semantic search.
-    - **Language Model (Ollama):** A local LLM that generates answers based on the retrieved information.
+    - **Knowledge Base**: 39,000+ lines of Arabic heritage content
+    - **Embedding Model**: sentence-transformers for semantic similarity
+    - **Language Model**: Ollama aya-expanse:8b (local, multilingual)
 
 ### **Data Flow**
 
-The process is straightforward: a user asks a question, CrewAI orchestrates the agents to detect the language, find relevant information, and generate an answer, which is then displayed to the user.
+The hierarchical multi-agent workflow operates as follows:
+
+1. **User Input**: Question entered via Streamlit interface
+2. **Manager Reception**: Manager agent receives and analyzes the query
+3. **Task Delegation**: Manager delegates to appropriate specialist agents:
+   - **Language Detector**: Identifies query language ('ar' or 'en')
+   - **Heritage Expert**: Searches knowledge base using RAG semantic search
+   - **Weather Specialist**: Fetches weather data if location mentioned
+4. **Information Synthesis**: Reporter agent receives all gathered information
+5. **Response Formatting**: Reporter formats comprehensive answer in detected language
+6. **User Display**: Final response presented in Streamlit UI
+
+**Key Advantages of Hierarchical Process:**
+
+- Intelligent task routing by manager agent
+- Parallel execution of independent tasks
+- Specialized expertise for each task type
+- Coordinated workflow ensures comprehensive responses
+- Scalable architecture for adding new specialist agents
+
+### **Agent Details**
+
+#### **1. Manager Agent (Project Manager)**
+
+- **Configuration**: [agents.yaml](src/rag_crewai/config/agents.yaml) - `manager`
+- **LLM**: Ollama aya-expanse:8b
+- **Delegation**: Enabled
+- **Responsibilities**:
+  - Analyze incoming queries
+  - Determine required specialist agents
+  - Coordinate task execution
+  - Ensure workflow completion
+
+#### **2. Language Detector Agent**
+
+- **Configuration**: [agents.yaml](src/rag_crewai/config/agents.yaml) - `language_detector`
+- **Tools**: Language Detection Tool (XLM-RoBERTa)
+- **Task**: [tasks.yaml](src/rag_crewai/config/tasks.yaml) - `detect_language_task`
+- **Output**: Language code ('ar' or 'en')
+- **Delegation**: Disabled (specialist)
+
+#### **3. Heritage Expert Agent**
+
+- **Configuration**: [agents.yaml](src/rag_crewai/config/agents.yaml) - `heritage_expert`
+- **Tools**: Heritage Search Tool (RAG semantic search)
+- **Task**: [tasks.yaml](src/rag_crewai/config/tasks.yaml) - `heritage_research_task`
+- **Knowledge Base**: 39,000+ lines of Arabic heritage content
+- **Delegation**: Disabled (specialist)
+
+#### **4. Weather Specialist Agent**
+
+- **Configuration**: [agents.yaml](src/rag_crewai/config/agents.yaml) - `weather_specialist`
+- **Tools**: Weather Forecast Tool
+- **Task**: [tasks.yaml](src/rag_crewai/config/tasks.yaml) - `weather_research_task`
+- **Capabilities**: Location-based weather forecasting
+- **Delegation**: Disabled (specialist)
+
+#### **5. Reporter Agent**
+
+- **Configuration**: [agents.yaml](src/rag_crewai/config/agents.yaml) - `reporter`
+- **Tools**: None (uses synthesized information)
+- **Task**: [tasks.yaml](src/rag_crewai/config/tasks.yaml) - `format_report_task`
+- **Responsibilities**: Synthesize and format final response in detected language
+- **Delegation**: Disabled (specialist)
 
 ### **Technologies and Tools Tried But Not Used**
 
-- **OpenAI GPT Models:** Avoided due to cost and privacy concerns. Chose a local LLM instead.
-- **Vector Databases (e.g., Pinecone):** Not used to keep the architecture simple, as the current knowledge base is manageable in-memory.
-- **LangChain:** CrewAI was chosen for its stronger multi-agent capabilities.
+- **OpenAI GPT Models**: Avoided due to cost and privacy concerns. Chose local Ollama LLM for data privacy and zero API costs.
+- **Vector Databases (e.g., Pinecone, Weaviate)**: Not implemented to maintain simplicity. Current in-memory semantic search handles the 39,000-line knowledge base efficiently.
+- **LangChain**: Initially considered but CrewAI was chosen for superior multi-agent orchestration and hierarchical process capabilities.
+- **Sequential Process**: Tested but hierarchical process with manager agent provided better coordination and scalability.
+- **Multiple LLM Providers**: Consolidated on Ollama aya-expanse:8b for consistency, Arabic language support, and local deployment.
 
 ---
 
 ## 5. Current Limitations and Drawbacks
 
-- **Knowledge Base:** The information is static, primarily in English, and may not be exhaustive.
-- **Performance:** The local LLM is slower than cloud-based alternatives, and the system has a noticeable cold start time.
-- **Features:** The user interface is basic, lacking features like conversation history. The system also has limited tool integration and error handling.
-- **Deployment:** Requires manual setup of Ollama and other dependencies.
+### **Knowledge Base**
+
+- **Static Content**: Knowledge base is fixed and requires manual updates
+- **Language Imbalance**: Primary content is in English; Arabic translations may vary
+- **Coverage Gaps**: May not cover all Arabic heritage topics comprehensively
+- **No Real-Time Updates**: Historical information doesn't reflect recent discoveries
+
+### **Performance**
+
+- **Local LLM Speed**: Slower than cloud-based models, especially on CPU-only systems
+- **Cold Start**: Initial query has noticeable latency while models load
+- **Memory Usage**: All agents and models loaded in memory simultaneously
+- **Concurrent Users**: Not optimized for multiple simultaneous users
+
+### **Features**
+
+- **Basic UI**: Streamlit interface lacks advanced features like conversation history
+- **No User Authentication**: No user accounts or personalization
+- **Limited Tool Integration**: Only 3 tools currently integrated
+- **Error Handling**: Basic error handling; needs improvement for production
+- **No Feedback Loop**: Can't learn from user corrections or ratings
+
+### **Deployment**
+
+- **Manual Setup**: Requires local Ollama installation and model downloading
+- **Resource Requirements**: Needs adequate RAM and CPU for model execution
+- **No Cloud Deployment**: Currently designed for local deployment only
+
+### **Architecture**
+
+- **Single Knowledge Source**: Only uses one text file for heritage information
+- **No Caching**: Repeated queries regenerate embeddings and search results
+- **Limited Scalability**: Hierarchical process may bottleneck with many concurrent requests
 
 ---
 
-## 6. References and Citations
+## 6. Potential Improvements and Future Enhancements
 
-- **CrewAI:** [https://docs.crewai.com/](https://docs.crewai.com/)
-- **Streamlit:** [https://streamlit.io/](https://streamlit.io/)
-- **Sentence Transformers:** [https://www.sbert.net/](https://www.sbert.net/)
-- **Ollama:** [https://ollama.ai/](https://ollama.ai/)
+### **Architecture Enhancements**
+
+- **Add More Specialist Agents**: Image analysis agent for heritage photos, translation agent for multilingual content
+- **Implement Caching**: Redis or in-memory cache for frequently accessed information
+- **Vector Database Integration**: Migrate to Chroma or FAISS for improved semantic search scalability
+- **Agent Memory**: Implement conversation history and context retention
+
+### **Performance Optimizations**
+
+- **Async Processing**: Implement asynchronous agent execution for better concurrency
+- **Load Balancing**: Distribute agent workload across multiple processes
+- **Lazy Loading**: Load models on-demand rather than at startup
+
+### **Feature Additions**
+
+- **Conversation History**: Track multi-turn dialogues and context
+- **User Profiles**: Personalized preferences and saved queries
+- **Export Functionality**: PDF/Word export of responses
+- **Voice Input/Output**: Arabic and English speech recognition and synthesis
+- **Image Support**: Upload heritage site photos for identification and information
+- **Advanced Search**: Filters by time period, location, heritage type
+
+### **Knowledge Base Expansion**
+
+- **Dynamic Updates**: Automated web scraping for recent heritage information
+- **Multiple Sources**: Wikipedia, official heritage sites, academic databases
+- **Multimedia Content**: Images, videos, audio guides
+- **User Contributions**: Community-sourced heritage information with moderation
+
+### **Deployment Improvements**
+
+- **Docker Containerization**: Easy deployment with Docker Compose
+- **Cloud Deployment**: AWS/Azure/GCP deployment guides
+- **API Endpoint**: RESTful API for third-party integrations
+- **Mobile App**: React Native or Flutter mobile application
+
+---
+
+## 7. References and Citations
+
+### **Frameworks and Libraries**
+
+- **CrewAI**: Multi-agent orchestration framework - [https://docs.crewai.com/](https://docs.crewai.com/)
+- **Streamlit**: Web application framework - [https://streamlit.io/](https://streamlit.io/)
+- **Sentence Transformers**: Semantic search and embeddings - [https://www.sbert.net/](https://www.sbert.net/)
+- **Ollama**: Local LLM deployment - [https://ollama.ai/](https://ollama.ai/)
+- **Hugging Face Transformers**: Language detection models - [https://huggingface.co/docs/transformers/](https://huggingface.co/docs/transformers/)
+
+### **Models Used**
+
+- **aya-expanse:8b**: Multilingual LLM with Arabic/English support - [Ollama Model Library](https://ollama.ai/library/aya-expanse)
+- **all-MiniLM-L6-v2**: Sentence embedding model - [Hugging Face](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+- **XLM-RoBERTa**: Multilingual language detection - [Hugging Face](https://huggingface.co/xlm-roberta-base)
+
+
+---
+
+## 8. Project File Structure
+
+```
+Multi-Agent-Arabic-Heritage-RAG-Assistant/
+│
+├── app.py                                    # Streamlit web interface
+├── requirements.txt                          # Python dependencies
+├── pyproject.toml                            # Project configuration (Poetry/UV)
+├── README.md                                 # User-facing documentation
+├── documentation.md                          # Comprehensive technical docs
+│
+├── knowledge/                                # Knowledge base directory
+│   ├── _ALL_ARAB_HERITAGE_EN.txt            # 39,000+ lines of heritage content
+│   └── user_preference.txt                  # User preferences storage
+│
+└── src/
+    └── rag_crewai/                           # Main application package
+        │
+        ├── __init__.py                       # Package initializer
+        ├── crew.py                           # 5 Agents + Hierarchical Crew
+        ├── main.py                           # Entry point for CLI execution
+        │
+        ├── config/                           # Configuration files
+        │   ├── agents.yaml                   # 5 Agent definitions:
+        │   │                                 #   - manager
+        │   │                                 #   - language_detector
+        │   │                                 #   - heritage_expert
+        │   │                                 #   - weather_specialist
+        │   │                                 #   - reporter
+        │   │
+        │   └── tasks.yaml                    # 4 Task definitions:
+        │                                     #   - detect_language_task
+        │                                     #   - heritage_research_task
+        │                                     #   - weather_research_task
+        │                                     #   - format_report_task
+        │
+        └── tools/                            # Custom tools directory
+            ├── __init__.py                   # Tools package initializer
+            ├── custom_tool.py                # Base custom tool class
+            ├── heritage_tool.py              # RAG semantic search tool
+            ├── language_detection.py         # Language detection tool
+            └── weather_tool.py               # Weather forecast tool
+```
 
 ---
 
 ## Document Metadata
 
-- **Document Version:** 1.1
+- **Document Version:** 2.0
 - **Last Updated:** December 31, 2025
-- **Project Repository:** Multi-Agent-Arabic-Heritage-RAG-Assistant
+- **Project Repository**: Multi-Agent-Arabic-Heritage-RAG-Assistant
+- **Architecture**: Hierarchical Multi-Agent System with 5 Agents and 4 Tasks
+- **Primary LLM**: Ollama aya-expanse:8b
+- **Framework**: CrewAI with Hierarchical Process
 
 ---
