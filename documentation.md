@@ -386,3 +386,47 @@ Multi-Agent-Arabic-Heritage-RAG-Assistant/
 - **Framework**: CrewAI with Hierarchical Process
 
 ---
+
+
+```
+How does it benefit the end user?
+- Accessibility: Allows users to query complex historical data in their native language (Arabic or English) without needing to browse thousands of lines of text manually.
+
+- Contextual Intelligence: Instead of just a search result, users get a synthesized report that includes history + current context (like weather for travel planning).
+
+- Privacy: Since it uses Ollama, users' cultural interests and queries are never sent to a third-party cloud provider.
+
+Business Benefits
+- Cultural Preservation & Tourism: Museums or tourism boards can deploy this as an interactive kiosk or digital guide to enhance visitor engagement.
+
+- Operational Efficiency: Automates the "curation" process. Instead of staff answering repetitive questions about sites, the agent handles 80% of inquiries.
+
+- Data Sovereignty: Businesses in sensitive regions can keep their data local, meeting strict regulatory requirements for data privacy.
+
+- Scalability: The multi-agent design means a business can add a "Ticket Agent" or "Gift Shop Agent" later without rewriting the whole system.
+
+3. Technical: "What you tried but didn't use"
+This section is crucial for a technical submission. You might include:
+
+- Alternative LLMs: "Initially tried "**Write the previous model that we used before**", but it struggled with complex Arabic syntax; switched to Aya-Expanse:8b for better multilingual reasoning."
+
+- Process Type: "Experimented with Process.sequential, but the Hierarchical approach was necessary to let a Manager decide if the Weather tool was actually needed for a specific query."
+
+Current Limitations and Drawbacks
+- Hardware Dependency: Performance is strictly tied to the user's RAM/GPU because it runs locally via Ollama.
+
+- Context Window: With 39,000 lines of data, "Top-3" retrieval is necessary because the LLM cannot process the entire heritage file at once.
+
+- Language Nuance: While Aya-Expanse is great, it may still struggle with specific regional Arabic dialects (e.g., Maghrebi vs. Khaliji) compared to larger cloud models.
+
+Citations & References:
+[1] https://docs.crewai.com/
+[2] https://docs.crewai.com/en/tools/ai-ml/ragtool
+[3] https://docs.crewai.com/en/concepts/tools
+[4] https://medium.com/@krishnan.srm/crewai-with-rag-ae1ac9cd3881
+[5] https://github.com/tonykipkemboi/crewai-streamlit-demo
+[6] https://www.youtube.com/watch?v=Nms6PQkA7yY
+[7] https://scrapegraphai.com/blog/multi-agent
+[8] https://docs.crewai.com/en/tools/ai-ml/ragtool#ollama
+```
+
